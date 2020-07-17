@@ -27,7 +27,7 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -43,14 +43,41 @@ source.setPassword("123456");
 Connection connection = source.getConnection();
 ```
 
-# 后期 road-map
+## 池化的实现
 
-- [ ] 添加基础的线程池
+```java
+PooledDataSource source = new PooledDataSource();
+source.setDriverClass("com.mysql.jdbc.Driver");
+source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+source.setUser("root");
+source.setPassword("123456");
+source.setMinSize(1);
+
+// 初始化
+source.init();
+
+Connection connection = source.getConnection();
+System.out.println(connection.getCatalog());
+
+Connection connection2 = source.getConnection();
+System.out.println(connection2.getCatalog());
+```
+
+### 输出日志
+
+```
+Get from thread pool...
+test
+Grow create the jdbc pool...
+test
+```
+
+第一次默认直接从线程池中获取，第二次为重新创建的信息。
+
+# 后期 road-map
 
 - [ ] 添加线程池的常见配置
 
 - [ ] 添加 filter-chain
 
 - [ ] 添加监控页面实现
-
-- [ ] 添加配置的读取
