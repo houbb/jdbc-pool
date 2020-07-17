@@ -78,6 +78,8 @@ test
 
 - [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
 
+- [ ] 添加获取的等待
+
 - [ ] 添加 filter-chain
 
 - [ ] 添加监控页面实现
