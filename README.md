@@ -76,7 +76,7 @@ test
 
 # 后期 road-map
 
-- [ ] 添加线程池的常见配置
+- [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
 
 - [ ] 添加 filter-chain
 
