@@ -27,66 +27,30 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
-## 准备工作
+## 测试代码
 
-- sql 建表
+```java
+UnPooledDataSource source = new UnPooledDataSource();
+source.setDriverClass("com.mysql.jdbc.Driver");
+source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+source.setUser("root");
+source.setPassword("123456");
 
-在 test 数据库执行下面的建表语句。
-
-```sql
--- auto-generated definition
-use test;
-create table user
-(
-  id   int auto_increment
-    primary key comment '唯一主键',
-  name varchar(100) not null comment '姓名',
-  password varchar(100) not null comment '密码',
-  create_time char(17) comment '创建时间'
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
-
--- init
-insert into user (name, password) value ('luna', '123456');
+Connection connection = source.getConnection();
 ```
-
-- 配置文件
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-
-    <dataSource>
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/test"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123456"/>
-    </dataSource>
-
-    <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
-    </mappers>
-
-    <plugins>
-        <plugin interceptor="com.github.houbb.jdbc-pool.plugin.SimpleLogInterceptor"/>
-    </plugins>
-
-    <typeHandlers>
-        <typeHandler javaType="java.util.Date" handler="com.github.houbb.jdbc-pool.typehandler.DateTypeHandler"/>
-    </typeHandlers>
-
-</configuration>
-```
-
-备注：默认使用的是 mysql 5.7，如果为 8.0+，需要自行引入 jar。
-
-## 运行测试代码
 
 # 后期 road-map
 
-- [ ] 添加配置的读取
-
 - [ ] 添加基础的线程池
+
+- [ ] 添加线程池的常见配置
+
+- [ ] 添加 filter-chain
+
+- [ ] 添加监控页面实现
+
+- [ ] 添加配置的读取
