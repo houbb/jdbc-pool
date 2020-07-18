@@ -1,5 +1,7 @@
 package com.github.houbb.thread.pool.api;
 
+import com.github.houbb.thread.pool.connection.IPooledConnection;
+
 import javax.sql.DataSource;
 
 /**
@@ -8,4 +10,6 @@ import javax.sql.DataSource;
  * @since 1.0.0
  */
 public interface IDataSourceConfig extends IConfig, DataSource {
+
+
 }

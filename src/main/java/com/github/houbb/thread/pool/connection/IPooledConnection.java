@@ -1,5 +1,8 @@
 package com.github.houbb.thread.pool.connection;
 
+import com.github.houbb.thread.pool.api.IPooledDataSourceConfig;
+import com.github.houbb.thread.pool.datasource.PooledDataSource;
+
 import java.sql.Connection;
 
 /**
@@ -35,5 +38,19 @@ public interface IPooledConnection extends Connection {
      * @since 1.1.0
      */
     void setConnection(Connection connection);
+
+    /**
+     * 设置对应的数据源
+     * @param dataSource 数据源
+     * @since 1.5.0
+     */
+    void setDataSource(final IPooledDataSourceConfig dataSource);
+
+    /**
+     * 获取对应的数据源信息
+     * @return 数据源
+     * @since 1.5.0
+     */
+    IPooledDataSourceConfig getDataSource();
 
 }

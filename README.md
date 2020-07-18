@@ -13,6 +13,14 @@
 
 - 便于拓展自己的数据库工具
 
+## 特性
+
+- 基本的数据库连接池实现
+
+- 自动适配 jdbc 驱动类
+
+- 支持各种场景对于连接的校验
+
 # 快速开始
 
 ## 需要
@@ -85,9 +93,7 @@ test
 
 - [x] 添加日志替代 sout
 
-- [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
-
-（1）指定 idle 驱除的时间间隔
+- [x] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
 
 - [ ] 添加 filter-chain
 

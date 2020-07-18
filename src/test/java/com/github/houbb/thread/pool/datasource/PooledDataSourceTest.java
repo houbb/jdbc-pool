@@ -97,4 +97,23 @@ public class PooledDataSourceTest {
         DateUtil.sleep(100);
     }
 
+    @Test
+    public void testOnIdleTest() throws SQLException {
+        PooledDataSource source = new PooledDataSource();
+        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+        source.setUser("root");
+        source.setPassword("123456");
+        source.setTestOnIdleIntervalSeconds(5);
+
+        // 初始化配置
+        source.init();
+
+        Connection connection = source.getConnection();
+        System.out.println(connection.getCatalog());
+
+        DateUtil.sleep(30 * 1000);
+
+        connection.close();
+    }
+
 }

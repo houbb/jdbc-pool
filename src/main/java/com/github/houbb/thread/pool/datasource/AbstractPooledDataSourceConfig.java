@@ -8,7 +8,7 @@ import com.github.houbb.thread.pool.constant.PooledConst;
  * @author binbin.hou
  * @since 1.1.0
  */
-public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
+public abstract class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
         implements IPooledDataSourceConfig, ILifeCycle {
 
     /**
@@ -28,6 +28,42 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
      * @since 1.3.0
      */
     protected long maxWaitMills = PooledConst.DEFAULT_MAX_WAIT_MILLS;
+
+    /**
+     * 验证查询
+     * @since 1.5.0
+     */
+    protected String validQuery = PooledConst.DEFAULT_VALID_QUERY;
+
+    /**
+     * 验证的超时时间
+     * @since 1.5.0
+     */
+    protected int validTimeOutSeconds = PooledConst.DEFAULT_VALID_TIME_OUT_SECONDS;
+
+    /**
+     * 获取时验证
+     * @since 1.5.0
+     */
+    protected boolean testOnBorrow = PooledConst.DEFAULT_TEST_ON_BORROW;
+
+    /**
+     * 归还时验证
+     * @since 1.5.0
+     */
+    protected boolean testOnReturn = PooledConst.DEFAULT_TEST_ON_RETURN;
+
+    /**
+     * 闲暇时验证
+     * @since 1.5.0
+     */
+    protected boolean testOnIdle = PooledConst.DEFAULT_TEST_ON_IDLE;
+
+    /**
+     * 闲暇时验证的时间间隔
+     * @since 1.5.0
+     */
+    protected long testOnIdleIntervalSeconds = PooledConst.DEFAULT_TEST_ON_IDLE_INTERVAL_SECONDS;
 
     public int getMinSize() {
         return minSize;
@@ -54,6 +90,60 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
     @Override
     public void setMaxWaitMills(long maxWaitMills) {
         this.maxWaitMills = maxWaitMills;
+    }
+
+    public String getValidQuery() {
+        return validQuery;
+    }
+
+    @Override
+    public void setValidQuery(String validQuery) {
+        this.validQuery = validQuery;
+    }
+
+    public int getValidTimeOutSeconds() {
+        return validTimeOutSeconds;
+    }
+
+    @Override
+    public void setValidTimeOutSeconds(int validTimeOutSeconds) {
+        this.validTimeOutSeconds = validTimeOutSeconds;
+    }
+
+    public boolean isTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    @Override
+    public void setTestOnBorrow(boolean testOnBorrow) {
+        this.testOnBorrow = testOnBorrow;
+    }
+
+    public boolean isTestOnReturn() {
+        return testOnReturn;
+    }
+
+    @Override
+    public void setTestOnReturn(boolean testOnReturn) {
+        this.testOnReturn = testOnReturn;
+    }
+
+    public boolean isTestOnIdle() {
+        return testOnIdle;
+    }
+
+    @Override
+    public void setTestOnIdle(boolean testOnIdle) {
+        this.testOnIdle = testOnIdle;
+    }
+
+    public long getTestOnIdleIntervalSeconds() {
+        return testOnIdleIntervalSeconds;
+    }
+
+    @Override
+    public void setTestOnIdleIntervalSeconds(long testOnIdleIntervalSeconds) {
+        this.testOnIdleIntervalSeconds = testOnIdleIntervalSeconds;
     }
 
     @Override

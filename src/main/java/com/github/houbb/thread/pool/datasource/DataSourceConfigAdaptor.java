@@ -79,4 +79,5 @@ public class DataSourceConfigAdaptor implements IDataSourceConfig {
     public void setPassword(String password) {
 
     }
+
 }

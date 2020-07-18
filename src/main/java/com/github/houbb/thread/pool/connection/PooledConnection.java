@@ -2,6 +2,7 @@ package com.github.houbb.thread.pool.connection;
 
 import com.github.houbb.log.integration.core.Log;
 import com.github.houbb.log.integration.core.LogFactory;
+import com.github.houbb.thread.pool.api.IPooledDataSourceConfig;
 import com.github.houbb.thread.pool.exception.JdbcPoolException;
 
 import java.sql.*;
@@ -29,6 +30,13 @@ public class PooledConnection implements IPooledConnection {
      * @since 1.1.0
      */
     private Connection connection;
+
+    /**
+     * 对应的数据源信息
+     *
+     * @since 1.1.0
+     */
+    private IPooledDataSourceConfig dataSource;
 
     @Override
     public Statement createStatement() throws SQLException {
@@ -90,9 +98,7 @@ public class PooledConnection implements IPooledConnection {
     public void close() throws SQLException {
         checkStatus();
 
-        // 设置为不繁忙
-        this.isBusy = false;
-        LOG.debug("状态设置为不繁忙");
+        this.dataSource.returnConnection(this);
     }
 
     @Override
@@ -430,6 +436,15 @@ public class PooledConnection implements IPooledConnection {
         this.connection = connection;
     }
 
+    @Override
+    public IPooledDataSourceConfig getDataSource() {
+        return dataSource;
+    }
+
+    @Override
+    public void setDataSource(IPooledDataSourceConfig dataSource) {
+        this.dataSource = dataSource;
+    }
 
     /**
      * 对于设置为繁忙的连接，等价于关闭
