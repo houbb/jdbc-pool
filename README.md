@@ -27,7 +27,7 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -78,7 +78,11 @@ test
 
 - [x] 根据 url 自动识别 driverClass
 
-- [ ] 添加获取的等待
+- [x] 添加获取的等待
+
+- [ ] 添加设置为繁忙的状态 check
+
+使用动态代理
 
 - [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
 
@@ -87,3 +91,6 @@ test
 - [ ] 添加 filter-chain
 
 - [ ] 添加监控页面实现
+
+- [ ] 添加日志替代 sout
+

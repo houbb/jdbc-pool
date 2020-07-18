@@ -23,6 +23,12 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
      */
     protected int maxSize = PooledConst.DEFAULT_MAX_SIZE;
 
+    /**
+     * 最大的等待时间
+     * @since 1.3.0
+     */
+    protected long maxWaitMills = PooledConst.DEFAULT_MAX_WAIT_MILLS;
+
     public int getMinSize() {
         return minSize;
     }
@@ -39,6 +45,15 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
     @Override
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
+    }
+
+    public long getMaxWaitMills() {
+        return maxWaitMills;
+    }
+
+    @Override
+    public void setMaxWaitMills(long maxWaitMills) {
+        this.maxWaitMills = maxWaitMills;
     }
 
     @Override

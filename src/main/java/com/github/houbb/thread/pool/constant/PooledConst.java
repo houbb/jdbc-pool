@@ -20,4 +20,13 @@ public final class PooledConst {
      */
     public static final int DEFAULT_MAX_SIZE = 300;
 
+    /**
+     * 默认最大的等待毫秒数
+     *
+     * 默认：1 min
+     *
+     * @since 1.3.0
+     */
+    public static final int DEFAULT_MAX_WAIT_MILLS = 60 * 1000;
+
 }

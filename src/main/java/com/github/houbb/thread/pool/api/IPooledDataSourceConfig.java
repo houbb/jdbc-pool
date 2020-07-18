@@ -23,4 +23,11 @@ public interface IPooledDataSourceConfig extends IDataSourceConfig {
      */
     void setMaxSize(final int maxSize);
 
+    /**
+     * 设置最大的等待时间
+     * @param maxWaitMills 最大的等待时间
+     * @since 1.1.0
+     */
+    void setMaxWaitMills(final long maxWaitMills);
+
 }

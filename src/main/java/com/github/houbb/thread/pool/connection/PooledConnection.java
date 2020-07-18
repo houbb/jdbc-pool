@@ -67,6 +67,7 @@ public class PooledConnection implements IPooledConnection {
 
     @Override
     public void close() throws SQLException {
+        System.out.println("状态设置为不繁忙");
         // 设置为不繁忙
         this.isBusy = false;
     }

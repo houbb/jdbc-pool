@@ -1,5 +1,9 @@
 package com.github.houbb.thread.pool.datasource;
 
+import com.github.houbb.heaven.util.lang.ThreadUtil;
+import com.github.houbb.heaven.util.util.DateUtil;
+import com.github.houbb.heaven.util.util.Optional;
+import com.github.houbb.heaven.util.util.TimeUtil;
 import com.github.houbb.thread.pool.connection.IPooledConnection;
 import com.github.houbb.thread.pool.connection.PooledConnection;
 import com.github.houbb.thread.pool.exception.JdbcPoolException;
@@ -34,17 +38,34 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
     @Override
     public synchronized Connection getConnection() throws SQLException {
         //1. 获取第一个不是 busy 的连接
-        for(IPooledConnection pc : pool) {
-            if(!pc.isBusy()) {
-                System.out.println("Get from thread pool...");
-                pc.setBusy(true);
-                return pc;
-            }
+        Optional<IPooledConnection> connectionOptional = getFreeConnection();
+        if(connectionOptional.isPresent()) {
+            return connectionOptional.get();
         }
 
         //2. 考虑是否可以扩容
         if(pool.size() >= maxSize) {
-            throw new JdbcPoolException("Can't get connection from pool!");
+            //2.1 立刻返回
+            if(maxWaitMills <= 0) {
+                throw new JdbcPoolException("Can't get connection from pool!");
+            }
+
+
+            //2.2 循环等待
+            final long startWaitMills = System.currentTimeMillis();
+            final long endWaitMills = startWaitMills + maxWaitMills;
+            while (System.currentTimeMillis() < endWaitMills) {
+                Optional<IPooledConnection> optional = getFreeConnection();
+                if(optional.isPresent()) {
+                    return optional.get();
+                }
+
+                DateUtil.sleep(1);
+                System.out.println("等待连接池归还...");
+            }
+
+            //2.3 等待超时
+            throw new JdbcPoolException("Can't get connection from pool, wait time out for mills: " + maxWaitMills);
         }
 
         //3. 扩容（暂时只扩容一个）
@@ -56,6 +77,22 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
         return pooledConnection;
     }
 
+    /**
+     * 获取空闲的连接
+     * @return 连接
+     * @since 1.3.0
+     */
+    private Optional<IPooledConnection> getFreeConnection() {
+        for(IPooledConnection pc : pool) {
+            if(!pc.isBusy()) {
+                System.out.println("Get from thread pool...");
+                pc.setBusy(true);
+                return Optional.of(pc);
+            }
+        }
+        // 空
+        return Optional.empty();
+    }
 
     /**
      * 初始化连接池
