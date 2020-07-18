@@ -27,6 +27,7 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
         return minSize;
     }
 
+    @Override
     public void setMinSize(int minSize) {
         this.minSize = minSize;
     }
@@ -35,6 +36,7 @@ public class AbstractPooledDataSourceConfig extends AbstractDataSourceConfig
         return maxSize;
     }
 
+    @Override
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
     }

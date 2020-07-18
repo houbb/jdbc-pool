@@ -3,6 +3,7 @@ package com.github.houbb.thread.pool.datasource;
 import com.github.houbb.thread.pool.connection.IPooledConnection;
 import com.github.houbb.thread.pool.connection.PooledConnection;
 import com.github.houbb.thread.pool.exception.JdbcPoolException;
+import com.github.houbb.thread.pool.util.DriverClassUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,11 +26,7 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
 
     @Override
     public synchronized void init() {
-        try {
-            Class.forName(super.getDriverClass());
-        } catch (ClassNotFoundException e) {
-            throw new JdbcPoolException(e);
-        }
+        DriverClassUtil.loadDriverClass(super.driverClass, super.jdbcUrl);
 
         this.initJdbcPool();
     }
@@ -66,7 +63,6 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
      */
     private void initJdbcPool() {
         final int minSize = super.minSize;
-
         pool = new ArrayList<>(minSize);
 
         for(int i = 0; i < minSize; i++) {

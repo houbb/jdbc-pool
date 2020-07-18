@@ -14,7 +14,6 @@ public class UnPooledDataSourceTest {
     @Test
     public void simpleTest() throws SQLException {
         UnPooledDataSource source = new UnPooledDataSource();
-        source.setDriverClass("com.mysql.jdbc.Driver");
         source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
         source.setUser("root");
         source.setPassword("123456");

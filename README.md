@@ -27,7 +27,7 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -76,9 +76,13 @@ test
 
 # 后期 road-map
 
-- [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
+- [x] 根据 url 自动识别 driverClass
 
 - [ ] 添加获取的等待
+
+- [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
+
+（1）指定 idle 驱除的时间间隔
 
 - [ ] 添加 filter-chain
 

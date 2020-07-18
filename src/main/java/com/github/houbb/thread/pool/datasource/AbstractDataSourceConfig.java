@@ -34,6 +34,7 @@ public class AbstractDataSourceConfig extends DataSourceConfigAdaptor {
         return driverClass;
     }
 
+    @Override
     public void setDriverClass(String driverClass) {
         this.driverClass = driverClass;
     }
@@ -42,6 +43,7 @@ public class AbstractDataSourceConfig extends DataSourceConfigAdaptor {
         return jdbcUrl;
     }
 
+    @Override
     public void setJdbcUrl(String jdbcUrl) {
         this.jdbcUrl = jdbcUrl;
     }
@@ -50,6 +52,7 @@ public class AbstractDataSourceConfig extends DataSourceConfigAdaptor {
         return user;
     }
 
+    @Override
     public void setUser(String user) {
         this.user = user;
     }
@@ -58,6 +61,7 @@ public class AbstractDataSourceConfig extends DataSourceConfigAdaptor {
         return password;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
