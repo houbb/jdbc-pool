@@ -27,7 +27,7 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -66,9 +66,10 @@ System.out.println(connection2.getCatalog());
 ### 输出日志
 
 ```
-Get from thread pool...
+[DEBUG] [2020-07-18 10:50:54.536] [main] [c.g.h.t.p.d.PooledDataSource.getFreeConnection] - 从连接池中获取连接
 test
-Grow create the jdbc pool...
+[DEBUG] [2020-07-18 10:50:54.537] [main] [c.g.h.t.p.d.PooledDataSource.getConnection] - 开始扩容连接池大小，step: 1
+[DEBUG] [2020-07-18 10:50:54.548] [main] [c.g.h.t.p.d.PooledDataSource.getConnection] - 从扩容后的连接池中获取连接
 test
 ```
 
@@ -80,9 +81,9 @@ test
 
 - [x] 添加获取的等待
 
-- [ ] 添加设置为繁忙的状态 check
+- [x] 添加设置为繁忙的状态 check
 
-使用动态代理
+- [x] 添加日志替代 sout
 
 - [ ] 添加 validQuery, testOnBorrow, testOnReturn, testWhileIdle
 
@@ -91,6 +92,3 @@ test
 - [ ] 添加 filter-chain
 
 - [ ] 添加监控页面实现
-
-- [ ] 添加日志替代 sout
-

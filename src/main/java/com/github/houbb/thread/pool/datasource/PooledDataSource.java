@@ -1,9 +1,9 @@
 package com.github.houbb.thread.pool.datasource;
 
-import com.github.houbb.heaven.util.lang.ThreadUtil;
 import com.github.houbb.heaven.util.util.DateUtil;
 import com.github.houbb.heaven.util.util.Optional;
-import com.github.houbb.heaven.util.util.TimeUtil;
+import com.github.houbb.log.integration.core.Log;
+import com.github.houbb.log.integration.core.LogFactory;
 import com.github.houbb.thread.pool.connection.IPooledConnection;
 import com.github.houbb.thread.pool.connection.PooledConnection;
 import com.github.houbb.thread.pool.exception.JdbcPoolException;
@@ -21,6 +21,8 @@ import java.util.List;
  * @since 1.1.0
  */
 public class PooledDataSource extends AbstractPooledDataSourceConfig {
+
+    private static final Log LOG = LogFactory.getLog(PooledDataSource.class);
 
     /**
      * 内置的队列
@@ -61,7 +63,7 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
                 }
 
                 DateUtil.sleep(1);
-                System.out.println("等待连接池归还...");
+                LOG.debug("等待连接池归还，wait for 1 mills");
             }
 
             //2.3 等待超时
@@ -69,11 +71,11 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
         }
 
         //3. 扩容（暂时只扩容一个）
-        System.out.println("Grow create the jdbc pool...");
+        LOG.debug("开始扩容连接池大小，step: 1");
         IPooledConnection pooledConnection = createPooledConnection();
         pooledConnection.setBusy(true);
         this.pool.add(pooledConnection);
-
+        LOG.debug("从扩容后的连接池中获取连接");
         return pooledConnection;
     }
 
@@ -85,8 +87,8 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
     private Optional<IPooledConnection> getFreeConnection() {
         for(IPooledConnection pc : pool) {
             if(!pc.isBusy()) {
-                System.out.println("Get from thread pool...");
                 pc.setBusy(true);
+                LOG.debug("从连接池中获取连接");
                 return Optional.of(pc);
             }
         }
