@@ -1,12 +1,12 @@
 package com.github.houbb.thread.pool.connection;
 
 import com.github.houbb.thread.pool.api.IPooledDataSourceConfig;
-import com.github.houbb.thread.pool.datasource.PooledDataSource;
 
 import java.sql.Connection;
 
 /**
  * 池化的连接池
+ * @since 1.1.0
  */
 public interface IPooledConnection extends Connection {
 
