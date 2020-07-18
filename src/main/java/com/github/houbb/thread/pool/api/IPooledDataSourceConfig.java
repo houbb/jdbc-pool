@@ -11,6 +11,7 @@ public interface IPooledDataSourceConfig extends IDataSourceConfig {
 
     /**
      * 归还连接
+     * @param pooledConnection 连接池信息
      * @since 1.5.0
      */
     void returnConnection(IPooledConnection pooledConnection);
