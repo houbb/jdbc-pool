@@ -35,8 +35,20 @@
 <dependency>
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
 </dependency>
+```
+
+## 引导类
+
+```java
+JdbcPoolBs jdbcPoolBs = JdbcPoolBs.newInstance()
+                .username("root")
+                .password("123456")
+                .url("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+
+DataSource pooled = jdbcPoolBs.pooled();
+DataSource unPooled = jdbcPoolBs.unPooled();
 ```
 
 ## 测试代码
@@ -97,7 +109,11 @@ test
 
 - [ ] 添加 filter-chain
 
+- [ ] JMX 添加各种监听的属性
+
 - [ ] 添加监控页面实现
+
+- [ ] 添加 druid/mybatis??/commons-pool 等常见的数据源
 
 # 中间件等工具开源矩阵
 

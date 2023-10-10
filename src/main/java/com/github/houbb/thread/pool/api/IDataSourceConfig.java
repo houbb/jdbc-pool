@@ -1,7 +1,5 @@
 package com.github.houbb.thread.pool.api;
 
-import com.github.houbb.thread.pool.connection.IPooledConnection;
-
 import javax.sql.DataSource;
 
 /**
