@@ -21,7 +21,7 @@ public class JdbcPoolbsTest {
         JdbcPoolBs jdbcPoolBs = JdbcPoolBs.newInstance()
                 .username("root")
                 .password("123456")
-                .url("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+                .url("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
 
         DataSource pooled = jdbcPoolBs.pooled();
         DataSource unPooled = jdbcPoolBs.unPooled();

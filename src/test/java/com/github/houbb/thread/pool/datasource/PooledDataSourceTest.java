@@ -2,7 +2,6 @@ package com.github.houbb.thread.pool.datasource;
 
 import com.github.houbb.heaven.util.util.DateUtil;
 import com.github.houbb.thread.pool.exception.JdbcPoolException;
-import com.mysql.jdbc.TimeUtil;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -17,7 +16,7 @@ public class PooledDataSourceTest {
     @Test
     public void simpleTest() throws SQLException {
         PooledDataSource source = new PooledDataSource();
-        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         source.setUser("root");
         source.setPassword("123456");
         source.setMinSize(1);
@@ -35,7 +34,7 @@ public class PooledDataSourceTest {
     @Test
     public void notWaitTest() throws SQLException {
         PooledDataSource source = new PooledDataSource();
-        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         source.setUser("root");
         source.setPassword("123456");
         source.setMinSize(1);
@@ -74,7 +73,7 @@ public class PooledDataSourceTest {
     @Test
     public void waitTest() throws SQLException {
         PooledDataSource source = new PooledDataSource();
-        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         source.setUser("root");
         source.setPassword("123456");
         source.setMinSize(1);
@@ -100,7 +99,7 @@ public class PooledDataSourceTest {
     @Test
     public void testOnIdleTest() throws SQLException {
         PooledDataSource source = new PooledDataSource();
-        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8");
+        source.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC");
         source.setUser("root");
         source.setPassword("123456");
         source.setTestOnIdleIntervalSeconds(5);

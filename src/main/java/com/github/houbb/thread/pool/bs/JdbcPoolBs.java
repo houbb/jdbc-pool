@@ -17,9 +17,9 @@ public class JdbcPoolBs {
      * 驱动类
      * @since 0.0.9
      */
-    private String driverClass = DriverNameConst.MYSQL;
+    private String driverClass = DriverNameConst.MYSQL_8;
 
-    private String url = "jdbc:mysql://127.0.0.1:3306/jdbc";
+    private String url = "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC";
 
     private String username = "root";
 

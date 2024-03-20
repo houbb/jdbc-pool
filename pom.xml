@@ -5,7 +5,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>jdbc-pool</artifactId>
-    <version>1.6.1</version>
+    <version>1.7.0</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
@@ -27,12 +27,12 @@
         <project.compiler.level>1.7</project.compiler.level>
 
         <!--============================== INTER ==============================-->
-        <heaven.version>0.9.0</heaven.version>
+        <heaven.version>0.4.0</heaven.version>
         <log-integration.version>1.1.8</log-integration.version>
 
         <!--============================== OTHER ==============================-->
         <junit.version>4.13.1</junit.version>
-        <mysql.version>5.1.29</mysql.version>
+        <mysql.version>8.0.13</mysql.version>
     </properties>
 
 

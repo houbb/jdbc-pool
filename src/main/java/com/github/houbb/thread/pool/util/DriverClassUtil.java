@@ -48,7 +48,7 @@ public final class DriverClassUtil {
         DRIVER_CLASS_MAP.put("jdbc:sybase:Tds", "com.sybase.jdbc2.jdbc.SybDriver");
         DRIVER_CLASS_MAP.put("jdbc:mock", "com.alibaba.druid.mock.MockDriver");
         DRIVER_CLASS_MAP.put("jdbc:oracle", "oracle.jdbc.driver.OracleDriver");
-        DRIVER_CLASS_MAP.put("jdbc:mysql", "com.mysql.jdbc.Driver");
+        DRIVER_CLASS_MAP.put("jdbc:mysql", "com.mysql.cj.jdbc.Driver");
         DRIVER_CLASS_MAP.put("jdbc:odps", "com.aliyun.odps.jdbc.OdpsDriver");
         DRIVER_CLASS_MAP.put("jdbc:mckoi", "com.mckoi.JDBCDriver");
         DRIVER_CLASS_MAP.put("jdbc:jtds", "net.sourceforge.jtds.jdbc.Driver");
