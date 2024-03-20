@@ -57,6 +57,7 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
         if(pool.size() >= maxSize) {
             //2.1 立刻返回
             if(maxWaitMills <= 0) {
+                LOG.error("[JdbcPool] Can't get connection from pool!");
                 throw new JdbcPoolException("Can't get connection from pool!");
             }
 
@@ -71,19 +72,20 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
                 }
 
                 DateUtil.sleep(1);
-                LOG.debug("等待连接池归还，wait for 1 mills");
+//                LOG.debug("等待连接池归还，wait for 1 mills");
             }
 
             //2.3 等待超时
+            LOG.error("[JdbcPool] Can't get connection from pool, wait time out for mills: {}", maxWaitMills);
             throw new JdbcPoolException("Can't get connection from pool, wait time out for mills: " + maxWaitMills);
         }
 
         //3. 扩容（暂时只扩容一个）
-        LOG.debug("开始扩容连接池大小，step: 1");
+        LOG.info("[JdbcPool] start to resize jdbc pool,step: 1");
         IPooledConnection pooledConnection = createPooledConnection();
         pooledConnection.setBusy(true);
         this.pool.add(pooledConnection);
-        LOG.debug("从扩容后的连接池中获取连接");
+        LOG.info("[JdbcPool] end to resize jdbc pool");
         return pooledConnection;
     }
 
@@ -96,7 +98,7 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
 
         // 设置为不繁忙
         pooledConnection.setBusy(false);
-        LOG.debug("归还连接，状态设置为不繁忙");
+//        LOG.debug("归还连接，状态设置为不繁忙");
     }
 
     /**
@@ -108,13 +110,13 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
         for(IPooledConnection pc : pool) {
             if(!pc.isBusy()) {
                 pc.setBusy(true);
-                LOG.debug("从连接池中获取连接");
+//                LOG.debug("从连接池中获取连接");
 
                 // 验证有效性
                 if(testOnBorrow) {
-                    LOG.debug("Test on borrow start");
+//                    LOG.debug("Test on borrow start");
                     checkValid(pc);
-                    LOG.debug("Test on borrow finish");
+//                    LOG.debug("Test on borrow finish");
                 }
 
                 return Optional.of(pc);
@@ -138,17 +140,19 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
             try {
                 // 如果连接无效，重新申请一个新的替代
                 if(!connection.isValid(super.validTimeOutSeconds)) {
-                    LOG.debug("Old connection is inValid, start create one for it.");
+//                    LOG.debug("Old connection is inValid, start create one for it.");
 
                     Connection newConnection = createConnection();
                     pooledConnection.setConnection(newConnection);
-                    LOG.debug("Old connection is inValid, finish create one for it.");
+//                    LOG.debug("Old connection is inValid, finish create one for it.");
                 }
             } catch (SQLException throwables) {
+                LOG.error("[JdbcPool] checkValid failed", throwables);
+
                 throw new JdbcPoolException(throwables);
             }
         } else {
-            LOG.debug("valid query is empty, ignore valid.");
+//            LOG.debug("valid query is empty, ignore valid.");
         }
     }
 
@@ -193,6 +197,8 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
             return DriverManager.getConnection(super.getJdbcUrl(),
                     super.getUser(), super.getPassword());
         } catch (SQLException e) {
+            LOG.error("[JdbcPool] createConnection failed", e);
+
             throw new JdbcPoolException(e);
         }
     }
@@ -212,7 +218,7 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
                     testOnIdleCheck();
                 }
             }, super.testOnIdleIntervalSeconds, testOnIdleIntervalSeconds, TimeUnit.SECONDS);
-            LOG.debug("Test on idle config with interval seonds: " + testOnIdleIntervalSeconds);
+//            LOG.debug("Test on idle config with interval seconds: " + testOnIdleIntervalSeconds);
         }
     }
 
@@ -221,13 +227,13 @@ public class PooledDataSource extends AbstractPooledDataSourceConfig {
      * @since 1.5.0
      */
     private void testOnIdleCheck() {
-        LOG.debug("start check test on idle");
+//        LOG.debug("start check test on idle");
         for(IPooledConnection pc : this.pool) {
             if(!pc.isBusy()) {
                 checkValid(pc);
             }
         }
-        LOG.debug("finish check test on idle");
+//        LOG.debug("finish check test on idle");
     }
 
 }
